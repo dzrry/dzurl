@@ -65,7 +65,7 @@ func (r *redisRepo) Store(redirect *domain.Redirect) error {
 		"url":        redirect.URL,
 		"created_at": redirect.CreatedAt,
 	}
-	_, err := r.client.HMSet(ctx, key, data).Result()
+	_, err := r.client.HSet(ctx, key, data).Result()
 	if err != nil {
 		return fmt.Errorf("repository.Redirect.Store: %w", err)
 	}
