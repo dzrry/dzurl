@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func TestRedirect(t *testing.T) {
+func TestRedisRepo(t *testing.T) {
 	rdct := &domain.Redirect{
 		Key:       "avito-krsk",
 		URL:       "www.avito.ru/krasnoyarsk",
