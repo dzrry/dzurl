@@ -8,4 +8,3 @@ type RedirectRepo interface {
 	Load(key string) (*domain.Redirect, error)
 	Store(redirect *domain.Redirect) error
 }
-

@@ -29,7 +29,7 @@ func TestJsonSerializer(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, rdct, res)
 	})
-	
+
 	t.Run("Encode valid value", func(t *testing.T) {
 		rdct := &domain.Redirect{
 			Key:       "avito-tech",

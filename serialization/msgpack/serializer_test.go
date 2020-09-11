@@ -42,4 +42,3 @@ func TestMsgpackSerializer(t *testing.T) {
 		assert.Equal(t, res, raw)
 	})
 }
-

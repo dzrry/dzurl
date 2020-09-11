@@ -17,7 +17,7 @@ import (
 func main() {
 	rr, err := rediss.NewRepo("localhost", "6379", "")
 	if err != nil {
-		log.Fatal("12", err)
+		log.Fatal(err)
 	}
 	srvc := service.NewRedirectService(rr)
 	handler := transport.NewHandler(srvc)

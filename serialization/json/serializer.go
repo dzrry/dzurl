@@ -6,7 +6,7 @@ import (
 	"github.com/dzrry/dzurl/domain"
 )
 
-type Redirect struct {}
+type Redirect struct{}
 
 func (r *Redirect) Decode(d []byte) (*domain.Redirect, error) {
 	rdct := &domain.Redirect{}
