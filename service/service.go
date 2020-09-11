@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/dzrry/dzurl/domain"
 	"github.com/dzrry/dzurl/repo"
+	"github.com/rs/xid"
 	"time"
 )
 
@@ -32,7 +33,7 @@ func (r *redirectService) Load(key string) (*domain.Redirect, error) {
 }
 
 func (r *redirectService) Store(redirect *domain.Redirect) error {
-	redirect.Key = "test"
+	redirect.Key = xid.New().String()
 	redirect.CreatedAt = time.Now().UTC().Unix()
 	return r.redirectRepo.Store(redirect)
 }
