@@ -7,4 +7,6 @@ require (
 	github.com/go-redis/redis/v8 v8.0.0-beta.11
 	github.com/rs/xid v1.2.1
 	github.com/stretchr/testify v1.6.1
+	github.com/vmihailenco/msgpack v4.0.4+incompatible
+	google.golang.org/appengine v1.6.6 // indirect
 )
