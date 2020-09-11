@@ -5,7 +5,7 @@ package domain
 // усложнении хранимой сущности, чтобы была возможность поддерживать несколько видов хранилищ: будь то, реляционные и
 // нереляционные базы данных, а не только Key-Value хранилища.
 type Redirect struct {
-	Key       string
-	URL       string
-	CreatedAt int64
+	Key       string `json:"key" msgpack:"key"`
+	URL       string `json:"url" msgpack:"url"`
+	CreatedAt int64  `json:"created_at" msgpack:"create_at"`
 }

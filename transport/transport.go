@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/dzrry/dzurl/serialization"
 	jsonn "github.com/dzrry/dzurl/serialization/json"
+	msgpackk "github.com/dzrry/dzurl/serialization/msgpack"
 	"github.com/dzrry/dzurl/service"
 	"github.com/go-chi/chi"
 	"io/ioutil"
@@ -20,10 +21,12 @@ type handler struct {
 	redirectService service.RedirectService
 }
 
-func (h *handler) serializer() serialization.RedirectSerializer {
+func (h *handler) serializer(contentType string) serialization.RedirectSerializer {
+	if contentType == "application/x-msgpack" {
+		return &msgpackk.Redirect{}
+	}
 	return &jsonn.Redirect{}
 }
-
 
 func NewHandler(redirectService service.RedirectService) *handler {
 	return &handler{
@@ -62,7 +65,7 @@ func (h *handler) StoreRedirect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rdct, err := h.serializer().Decode(req)
+	rdct, err := h.serializer(ct).Decode(req)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
@@ -77,11 +80,10 @@ func (h *handler) StoreRedirect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.serializer().Encode(rdct)
+	resp, err := h.serializer(ct).Encode(rdct)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 	setupResponse(w, ct, resp, http.StatusCreated)
 }
-
