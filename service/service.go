@@ -32,6 +32,7 @@ func (r *redirectService) Load(key string) (*domain.Redirect, error) {
 }
 
 func (r *redirectService) Store(redirect *domain.Redirect) error {
+	redirect.Key = "test"
 	redirect.CreatedAt = time.Now().UTC().Unix()
 	return r.redirectRepo.Store(redirect)
 }

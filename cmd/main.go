@@ -2,42 +2,47 @@ package main
 
 import (
 	"fmt"
-	"github.com/dzrry/dzurl/domain"
-	"github.com/dzrry/dzurl/repo/redis"
+	rediss "github.com/dzrry/dzurl/repo/redis"
+	"github.com/dzrry/dzurl/service"
+	"github.com/dzrry/dzurl/transport"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
-	r, err := redis.NewRepo("localhost", "6379", "")
+	rr, err := rediss.NewRepo("localhost", "6379", "")
 	if err != nil {
-		log.Fatal("13" + err.Error())
+		log.Fatal("12", err)
 	}
+	srvc := service.NewRedirectService(rr)
+	handler := transport.NewHandler(srvc)
 
-	rdrct := &domain.Redirect{
-		Key:       "12345",
-		URL:       "123456789",
-		CreatedAt: 1000000,
-	}
-	err = r.Store(rdrct)
-	if err != nil {
-		log.Fatal("23" + err.Error())
-	}
+	r := chi.NewRouter()
+	r.Use(middleware.RequestID)
+	r.Use(middleware.RealIP)
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
 
-	rdrct, err = r.Load("12345")
-	if err != nil {
-		log.Fatal("28" + err.Error())
-	}
-	fmt.Println("30" + rdrct.URL)
+	r.Get("/{key}", handler.LoadRedirect)
+	r.Post("/", handler.StoreRedirect)
 
-	rdrct.URL = "0123456789"
-	err = r.Store(rdrct)
-	if err != nil {
-		log.Fatal("35" + err.Error())
-	}
-	fmt.Println(rdrct.URL)
-	newRdrct, err := r.Load("12345")
-	if err != nil {
-		log.Fatal("40" + err.Error())
-	}
-	fmt.Println("42" + newRdrct.URL)
+	errs := make(chan error, 2)
+	go func() {
+		fmt.Println("Listening on port :8080")
+		errs <- http.ListenAndServe("localhost:8080", r)
+
+	}()
+
+	go func() {
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, syscall.SIGINT)
+		errs <- fmt.Errorf("%s", <-c)
+	}()
+
+	fmt.Printf("Terminated %s", <-errs)
 }
