@@ -2,6 +2,8 @@ package service
 
 import (
 	"errors"
+	"fmt"
+	valid "github.com/asaskevich/govalidator"
 	"github.com/dzrry/dzurl/domain"
 	"github.com/dzrry/dzurl/repo"
 	"github.com/rs/xid"
@@ -33,6 +35,10 @@ func (r *redirectService) Load(key string) (*domain.Redirect, error) {
 }
 
 func (r *redirectService) Store(redirect *domain.Redirect) error {
+	_, err := valid.ValidateStruct(redirect)
+	if err != nil {
+		return fmt.Errorf("service.Redirect.Store: %w", err)
+	}
 	redirect.Key = xid.New().String()
 	redirect.CreatedAt = time.Now().UTC().Unix()
 	return r.redirectRepo.Store(redirect)
