@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRedirect(t *testing.T) {
+func TestService(t *testing.T) {
 	t.Run("Store", func(t *testing.T) {
 		rdct := &domain.Redirect{URL: "https://start.avito.ru/tech"}
 		rdctRepo := mocks.RedirectRepo{}
