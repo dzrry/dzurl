@@ -1,7 +1,6 @@
 package service
 
 import (
-	"errors"
 	"fmt"
 	valid "github.com/asaskevich/govalidator"
 	"github.com/dzrry/dzurl/domain"
@@ -14,11 +13,6 @@ type RedirectService interface {
 	Load(key string) (*domain.Redirect, error)
 	Store(redirect *domain.Redirect) error
 }
-
-var (
-	ErrRedirectNotFound = errors.New("Redirect not found")
-	ErrRedirectInvalid  = errors.New("Redirect invalid")
-)
 
 type redirectService struct {
 	redirectRepo repo.RedirectRepo
