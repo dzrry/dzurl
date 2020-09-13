@@ -33,7 +33,9 @@ func (r *redirectService) Store(redirect *domain.Redirect) error {
 	if err != nil {
 		return fmt.Errorf("service.Redirect.Store: %w", err)
 	}
-	redirect.Key = xid.New().String()
+	if redirect.Key == "" {
+		redirect.Key = xid.New().String()
+	}
 	redirect.CreatedAt = time.Now().UTC().Unix()
 	return r.redirectRepo.Store(redirect)
 }
