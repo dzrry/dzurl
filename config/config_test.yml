@@ -1,0 +1,4 @@
+redis:
+  addr: redis-addr
+  port: 6379
+

@@ -10,4 +10,5 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/vmihailenco/msgpack v4.0.4+incompatible
 	google.golang.org/appengine v1.6.6 // indirect
+	gopkg.in/yaml.v2 v2.3.0
 )

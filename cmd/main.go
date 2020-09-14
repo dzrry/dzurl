@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/dzrry/dzurl/config"
 	rediss "github.com/dzrry/dzurl/repo/redis"
 	"github.com/dzrry/dzurl/service"
 	"github.com/dzrry/dzurl/transport"
@@ -15,10 +16,15 @@ import (
 )
 
 func main() {
-	rr, err := rediss.NewRepo("localhost", "6379", "")
+	cfg, err := config.Read("config/config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
+	rr, err := rediss.NewRepo(cfg.Redis)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	srvc := service.NewRedirectService(rr)
 	handler := transport.NewHandler(srvc)
 

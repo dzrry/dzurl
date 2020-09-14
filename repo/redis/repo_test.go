@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"github.com/dzrry/dzurl/config"
 	"github.com/dzrry/dzurl/domain"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -13,10 +14,11 @@ func TestRedisRepo(t *testing.T) {
 		URL:       "www.avito.ru/krasnoyarsk",
 		CreatedAt: time.Now().Unix(),
 	}
-	// Сделать чтение конфигурации из конфига или переменных окружения
-	redisAddr := "localhost"
-	redisPort := "6379"
-	rr, err := NewRepo(redisAddr, redisPort, "")
+	testCfg := &config.RedisConfig{
+		Addr: "localhost",
+		Port: "6379",
+		Password: ""}
+	rr, err := NewRepo(testCfg)
 	assert.Nil(t, err)
 
 	t.Run("Store", func(t *testing.T) {

@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"fmt"
+	"github.com/dzrry/dzurl/config"
 	"github.com/dzrry/dzurl/domain"
 	"github.com/dzrry/dzurl/service"
 	"github.com/go-redis/redis/v8"
@@ -15,9 +16,9 @@ type redisRepo struct {
 
 var ctx = context.Background()
 
-func NewRepo(addr, port, password string) (*redisRepo, error) {
+func NewRepo(cfg *config.RedisConfig) (*redisRepo, error) {
 	repo := &redisRepo{}
-	client, err := newClient(addr, port, password)
+	client, err := newClient(cfg.Addr, cfg.Port, cfg.Password)
 	if err != nil {
 		return nil, fmt.Errorf("repository.Redis.NewRepo: %w", err)
 	}
