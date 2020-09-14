@@ -1,11 +1,7 @@
 package domain
 
-// Для хранения в БД была выбрана следующая структура. Можно было воспользоваться более простой структурой для хранения
-// в редисе: ключом был бы сгенерированный хэш (uuid), а значением - полный URL. Но было принято осознанное решение в
-// усложнении хранимой сущности, чтобы была возможность поддерживать несколько видов хранилищ: будь то, реляционные и
-// нереляционные базы данных, а не только Key-Value хранилища.
 type Redirect struct {
 	Key       string `json:"key" msgpack:"key" valid:"-"`
 	URL       string `json:"url" msgpack:"url" valid:"requrl"`
-	CreatedAt int64  `json:"created_at" msgpack:"create_at" valid:"-"`
+	CreatedAt int64  `json:"created_at" msgpack:"created_at" valid:"-"`
 }
