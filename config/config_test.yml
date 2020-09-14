@@ -2,3 +2,6 @@ redis:
   addr: redis-addr
   port: 6379
 
+server:
+  addr: server-addr
+  port: 8080

@@ -11,8 +11,14 @@ type RedisConfig struct {
 	Password string `yaml:"password"`
 }
 
+type ServerConfig struct {
+	Addr string `yaml:"addr"`
+	Port string `yaml:"port"`
+}
+
 type Config struct {
-	Redis *RedisConfig `yaml:"redis"`
+	Redis  *RedisConfig  `yaml:"redis"`
+	Server *ServerConfig `yaml:"server"`
 }
 
 func Read(path string) (*Config, error) {

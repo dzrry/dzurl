@@ -39,8 +39,9 @@ func main() {
 
 	errs := make(chan error, 2)
 	go func() {
-		fmt.Println("Listening on port :8080")
-		errs <- http.ListenAndServe("localhost:8080", r)
+		srvAddr := fmt.Sprintf("%s:%s", cfg.Server.Addr, cfg.Server.Port)
+		fmt.Printf("Listening on %s", srvAddr)
+		errs <- http.ListenAndServe(srvAddr, r)
 
 	}()
 
