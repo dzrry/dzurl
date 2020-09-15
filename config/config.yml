@@ -1,10 +1,10 @@
 # Редис сделан публичным для удобства использования.
 # В продакшене пароль был бы взят из переменных окружения.
 redis:
-  addr: localhost
+  addr: redis
   port: 6379
 
 server:
-  addr: localhost
+  addr: server
   port: 8080
 

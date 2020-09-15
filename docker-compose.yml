@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  server:
+    build: ./
+    ports:
+      - "8080:8080"
+    restart: always
+    links:
+      - redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine

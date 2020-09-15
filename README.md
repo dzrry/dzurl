@@ -24,8 +24,8 @@ msgpack будет приведен ниже.
 ```bash
 $ git clone https://github.com/dzrry/dzurl.git  
 $ cd dzurl
-
-$ go run cmd/main.go
+$ docker-compose build
+$ docker-compose up
 ```
 После этого API сервер готов получать HTTP запросы на порту ```8080```, но это поведение можно изменить в файле 
 конфигурации ```config/config.yml```.
