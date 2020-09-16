@@ -13,8 +13,8 @@ import (
 )
 
 type RedirectHandler interface {
-	Get(http.ResponseWriter, *http.Request)
-	Post(http.ResponseWriter, *http.Request)
+	LoadRedirect(http.ResponseWriter, *http.Request)
+	StoreRedirect(http.ResponseWriter, *http.Request)
 }
 
 type handler struct {
