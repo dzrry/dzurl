@@ -494,11 +494,11 @@ func (h *handler) serializer(contentType string) serialization.RedirectSerialize
 ```go
 func (h *handler) LoadRedirect(w http.ResponseWriter, r *http.Request)
 ```
-Данный метод возвращает пользователю ```http-ответ```, в теле которого лежит структура типа 
-[domain.Redirect](#redirect). Под капотом с помощью функции ```URLParam()``` из пакета 
-[chi](https://github.com/go-chi/chi) из тела ```GET-запроса``` достается ключ, по которому нужно найти значение в базе
-данных. Далее вызывается метод [service.RedirectService.Load()](#serviceload). В случае успешного нахождения структуры
-происходит перенаправление на адрес полного URL, хранящегося по указанному ключу.
+Данный метод возвращает пользователю ```http-ответ```, в теле которого лежит структура типа [domain.Redirect](#redirect). 
+Под капотом с помощью функции ```URLParam()``` из пакета [chi](https://github.com/go-chi/chi) из тела ```GET-запроса``` 
+достается ключ, по которому нужно найти значение в базе данных. Далее вызывается метод [service.RedirectService.Load()](#serviceload). 
+В случае успешного нахождения структуры происходит перенаправление на адрес полного URL, хранящегося по указанному 
+ключу.
 
 <a name="transportstore"></a>
 #### func (h *handler) StoreRedirect
